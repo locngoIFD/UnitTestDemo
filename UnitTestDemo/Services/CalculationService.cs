@@ -11,57 +11,57 @@ namespace UnitTestDemo.Services
 			new EnergyTax
 			{
 				StartDate = DateTime.MinValue,
-				EndDate = DateTime.Now.AddDays(-1),
+				EndDate = new DateTime(2024, 12, 31),
 				Zone = 0,
 				Cost = 0.5m,
 			},
 			new EnergyTax
 			{
 				StartDate = DateTime.MinValue,
-				EndDate = DateTime.Now.AddDays(-1),
+				EndDate = new DateTime(2024, 12, 31),
 				Zone = 5000,
 				Cost = 1,
 			},
 			new EnergyTax
 			{
-				StartDate = DateTime.Now,
-				EndDate = DateTime.Now.AddYears(1),
+				StartDate = new DateTime(2025, 1, 1),
+				EndDate = new DateTime(2025, 12, 31),
 				Zone = 0,
 				Cost = 0.1m,
 			},
 			new EnergyTax
 			{
-				StartDate = DateTime.Now,
-				EndDate = DateTime.Now.AddYears(1),
+				StartDate = new DateTime(2025, 1, 1),
+				EndDate = new DateTime(2025, 12, 31),
 				Zone = 10000,
 				Cost = 1,
 			},
 			new EnergyTax
 			{
 				IsElk = true,
-				StartDate = DateTime.Now,
-				EndDate = DateTime.Now.AddYears(1),
+				StartDate = new DateTime(2025, 1, 1),
+				EndDate = new DateTime(2025, 12, 31),
 				Zone = 0,
 				Cost = 0.2m,
 			},
 			new EnergyTax
 			{
 				IsElk = true,
-				StartDate = DateTime.Now,
-				EndDate = DateTime.Now.AddYears(1),
+				StartDate = new DateTime(2025, 1, 1),
+				EndDate = new DateTime(2025, 12, 31),
 				Zone = 10000,
 				Cost = 1,
 			},
 			new EnergyTax
 			{
-				StartDate = DateTime.Now.AddYears(1).AddDays(1),
+				StartDate = new DateTime(2026, 1, 1),
 				EndDate = DateTime.MaxValue,
 				Zone = 0,
 				Cost = 0,
 			},
 			new EnergyTax
 			{
-				StartDate = DateTime.Now.AddYears(1).AddDays(1),
+				StartDate = new DateTime(2026, 1, 1),
 				EndDate = DateTime.MaxValue,
 				Zone = 1000,
 				Cost = 1,
@@ -129,6 +129,17 @@ namespace UnitTestDemo.Services
 			return dependentCost;
 		}
 
+		public List<EnergyTax> GetEnergyTaxes(bool isElk, DateTime targetMonth)
+		{
+			return _energyTaxes.Where(x => x.IsElk == isElk && x.StartDate <= targetMonth && targetMonth <= x.EndDate).ToList();
+		}
+
+		public decimal CalculateDependentTax(decimal usage, bool isElk, DateTime targetMonth, List<decimal> taxPercent)
+		{
+			List<EnergyTax> energyTaxes = GetEnergyTaxes(isElk, targetMonth);
+			return CalculateDependentTax(usage, energyTaxes, taxPercent);
+		}
+
 		private decimal CalculateDependentTax(decimal usage, List<EnergyTax> energyTaxes, List<decimal> taxPercent)
 		{
 			decimal taxedAmount = 0;
@@ -148,11 +159,6 @@ namespace UnitTestDemo.Services
 				}
 			}
 			return taxedAmount;
-		}
-
-		private List<EnergyTax> GetEnergyTaxes(bool isElk, DateTime targetMonth)
-		{
-			return _energyTaxes.Where(x => x.IsElk == isElk && x.StartDate <= targetMonth && targetMonth <= x.EndDate).ToList();
 		}
 	}
 }

@@ -15,13 +15,12 @@ namespace UnitTestDemo.Test
 			var mockHttp = new Mock<ILogger<CalculationService>>();
 			_service = new CalculationService(mockHttp.Object);
 		}
-
 		[Test]
 		public void CalculateCostGas()
 		{
 			CalculationRequest request = new CalculationRequest
 			{
-				TargetMonth = DateTime.Now,
+				TargetMonth = new DateTime(2025, 1, 1),
 				PriceSingle = 0.5m,
 				OnPeak = 10,
 				TaxPercent = new List<decimal> { 0.9m, 0.1m }
@@ -32,13 +31,13 @@ namespace UnitTestDemo.Test
 		}
 
 		[Test]
-		public void CalculateCostElk()
+		public void CalculateCostElkDouble()
 		{
 			CalculationRequest request = new CalculationRequest
 			{
 				IsElk = true,
 				IsDouble = true,
-				TargetMonth = DateTime.Now,
+				TargetMonth = new DateTime(2025, 1, 1),
 				PriceOnPeak = 1,
 				PriceOffPeak = 0.25m,
 				OnPeak = 10,
@@ -50,6 +49,18 @@ namespace UnitTestDemo.Test
 			};
 			decimal result = _service.CalculateCostElk(request);
 			Assert.That(result, Is.EqualTo(7.2m));
+		}
+
+		//Framework Parallel Test Execution
+		//https://docs.nunit.org/articles/nunit/writing-tests/attributes/parallelizable.html
+		[Parallelizable(ParallelScope.Children)]
+		[TestCase(false, "2024-1-1", ExpectedResult = null)]
+		[TestCase(false, "2025-1-1")]
+		[TestCase(false, "2026-1-1")]
+		[TestCase(true, "2025-1-1")]
+		public void GetEnergyTaxes(bool isElk, DateTime targetMonth)
+		{
+			Assert.That(_service.GetEnergyTaxes(isElk, targetMonth).Any(), Is.EqualTo(true));
 		}
 	}
 }
