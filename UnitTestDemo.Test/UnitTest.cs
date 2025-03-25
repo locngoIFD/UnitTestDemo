@@ -54,13 +54,13 @@ namespace UnitTestDemo.Test
 		//Framework Parallel Test Execution
 		//https://docs.nunit.org/articles/nunit/writing-tests/attributes/parallelizable.html
 		[Parallelizable(ParallelScope.Children)]
-		[TestCase(false, "2024-1-1")]
-		[TestCase(false, "2025-1-1")]
-		[TestCase(false, "2026-1-1")]
-		[TestCase(true, "2025-1-1")]
-		public void GetEnergyTaxes(bool isElk, DateTime targetMonth)
+		[TestCase(false, "2024-1-1", ExpectedResult = 2)]
+		[TestCase(false, "2025-1-1", ExpectedResult = 2)]
+		[TestCase(false, "2026-1-1", ExpectedResult = 2)]
+		[TestCase(true, "2025-1-1", ExpectedResult = 2)]
+		public int GetEnergyTaxes(bool isElk, DateTime targetMonth)
 		{
-			Assert.That(_service.GetEnergyTaxes(isElk, targetMonth).Any(), Is.EqualTo(true));
+			return _service.GetEnergyTaxes(isElk, targetMonth).Count();
 		}
 	}
 }
