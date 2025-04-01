@@ -28,7 +28,7 @@ namespace XUnitTestDemo.Test
 				TargetMonth = new DateTime(2025, 1, 1)
 
 			};
-			Assert.Equal(result, _fixture.service.CalculateCostElk(request));
+			Assert.Equal(result, _fixture.CalculationService.CalculateCostElk(request));
 		}
 	}
 }
