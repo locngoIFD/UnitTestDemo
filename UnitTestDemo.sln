@@ -5,9 +5,9 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestDemo", "UnitTestDemo\UnitTestDemo.csproj", "{E55DB0C1-9476-466E-A967-5527D2919472}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestDemo.Test", "UnitTestDemo.Test\UnitTestDemo.Test.csproj", "{8E1CC9AC-37C4-405A-81D4-96B838125A3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnitTestDemo.Test", "UnitTestDemo.Test\NUnitTestDemo.Test.csproj", "{8E1CC9AC-37C4-405A-81D4-96B838125A3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestDemo.Test", "XUnitTestDemo.Test\XUnitTestDemo.Test.csproj", "{3652B8E5-E768-441A-B0BF-624664874B25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTestDemo.Test", "XUnitTestDemo.Test\XUnitTestDemo.Test.csproj", "{3652B8E5-E768-441A-B0BF-624664874B25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

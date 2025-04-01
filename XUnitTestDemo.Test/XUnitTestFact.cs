@@ -1,18 +1,19 @@
-using Microsoft.Extensions.Logging;
-using Moq;
 using UnitTestDemo.Models;
-using UnitTestDemo.Services;
 
 namespace XUnitTestDemo.Test
 {
-	public class XUnitTest
+	public class XUnitTestFact : IClassFixture<CalculationServiceFixture>, IDisposable
 	{
-		private CalculationService _service;
+		private CalculationServiceFixture _fixture;
 
-		public XUnitTest()
+		public XUnitTestFact(CalculationServiceFixture fixture)
 		{
-			var mockHttp = new Mock<ILogger<CalculationService>>();
-			_service = new CalculationService(mockHttp.Object);
+			_fixture = fixture;
+		}
+
+		public void Dispose()
+		{
+			_fixture = null;
 		}
 
 		[Fact]
@@ -30,15 +31,11 @@ namespace XUnitTestDemo.Test
 				TaxPercent = new List<decimal> { 1 }
 
 			};
-			decimal result = _service.CalculateCostElk(request);
+			decimal result = _fixture._service.CalculateCostElk(request);
 			Assert.Equal(4.2m, result);
 
 			//A cheat sheet of Asserts for xUnit.net in C#
 			//https://gist.github.com/jonesandy/f622874e78d9d9f356896c4ac63c0ac3
-			//https://xunit.net/docs/comparisons
 		}
-
-		//In case of parallel test is needed
-		//https://github.com/meziantou/Meziantou.Xunit.ParallelTestFramework
 	}
 }

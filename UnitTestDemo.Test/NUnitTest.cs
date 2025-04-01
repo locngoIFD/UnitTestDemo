@@ -45,7 +45,6 @@ namespace UnitTestDemo.Test
 				ReturnOnPeak = 15,
 				ReturnTariff = 0.5m,
 				TaxPercent = new List<decimal> { 1 }
-
 			};
 			decimal result = _service.CalculateCostElk(request);
 			Assert.That(result, Is.EqualTo(7.2m));
