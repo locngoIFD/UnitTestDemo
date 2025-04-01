@@ -31,7 +31,7 @@ namespace XUnitTestDemo.Test
 				TaxPercent = new List<decimal> { 1 }
 
 			};
-			decimal result = _fixture._service.CalculateCostElk(request);
+			decimal result = _fixture.service.CalculateCostElk(request);
 			Assert.Equal(4.2m, result);
 
 			//A cheat sheet of Asserts for xUnit.net in C#

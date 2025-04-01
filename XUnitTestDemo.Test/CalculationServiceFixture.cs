@@ -9,9 +9,9 @@ namespace XUnitTestDemo.Test
 		public CalculationServiceFixture()
 		{
 			var mockHttp = new Mock<ILogger<CalculationService>>();
-			_service = new CalculationService(mockHttp.Object);
+			service = new CalculationService(mockHttp.Object);
 		}
 
-		public CalculationService _service { get; private set; }
+		public CalculationService service { get; private set; }
 	}
 }
