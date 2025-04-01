@@ -2,18 +2,13 @@ using UnitTestDemo.Models;
 
 namespace XUnitTestDemo.Test
 {
-	public class XUnitTestFact : IClassFixture<CalculationServiceFixture>, IDisposable
+	public class XUnitTestFact : IClassFixture<CalculationServiceFixture>
 	{
 		private CalculationServiceFixture _fixture;
 
 		public XUnitTestFact(CalculationServiceFixture fixture)
 		{
 			_fixture = fixture;
-		}
-
-		public void Dispose()
-		{
-			_fixture = null;
 		}
 
 		[Fact]
